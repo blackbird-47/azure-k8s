@@ -10,8 +10,8 @@ data "azurerm_subnet" "aks-subnet" {
 
 resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
   name = "swastik-aks-2"
-  location = data.azurerm_resource_group.swastik-rg.location
-  resource_group_name = data.azurerm_resource_group.swastik-rg.name
+  location = "${data.azurerm_resource_group.swastik-rg.location}"
+  resource_group_name = "${data.azurerm_resource_group.swastik-rg.name}"
   dns_prefix = "aks-multi-nodepool"
   kubernetes_version = "1.14.7"
 
@@ -74,8 +74,8 @@ resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
   }
 
   service_principal {
-    client_id = "f8bc4caf-4f94-4964-9a3d-6921fbabf7e9"
-    client_secret = "xIsmSjqw.x5yCYJcMzXOA0.:HDv:Ua00"
+    client_id = "${var.client_id}"
+    client_secret = "${var.client_secret}"
   }
 
   addon_profile {
