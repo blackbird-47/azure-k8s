@@ -3,9 +3,9 @@ data "azurerm_resource_group" "swastik-rg" {
 }
 
 data "azurerm_subnet" "aks-subnet" {
-  name = "aks-subnet"
-  virtual_network_name = "aks-vnet-15707174"
-  resource_group_name = "MC_swastik-rg_swastik-aks-1_westeurope"
+  name = "swastik-aks-2"
+  virtual_network_name = "swastik-aks-vnet"
+  resource_group_name = "${data.azurerm_resource_group.swastik-rg.name}"
 }
 
 resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
