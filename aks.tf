@@ -33,7 +33,7 @@ resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
     vm_size = "Standard_DS2_v2"
     os_type = "Linux"
     os_disk_size_gb = 50
-    vnet_subnet_id = data.azurerm_subnet.aks-subnet.id
+    vnet_subnet_id = "${data.azurerm_subnet.aks-subnet.id}"
     availability_zones = "${list("1","2","3")}"
     enable_auto_scaling = "1"
     type = "VirtualMachineScaleSets"
@@ -48,7 +48,7 @@ resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
     vm_size = "Standard_F4s_v2"
     os_type = "Linux"
     os_disk_size_gb = 50
-    vnet_subnet_id = data.azurerm_subnet.aks-subnet.id
+    vnet_subnet_id = "${data.azurerm_subnet.aks-subnet.id}"
     availability_zones = "${list("1","2","3")}"
     enable_auto_scaling = "1"
     type = "VirtualMachineScaleSets"
@@ -63,7 +63,7 @@ resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
     vm_size = "Standard_F8s_v2"
     os_type = "Linux"
     os_disk_size_gb = 50
-    vnet_subnet_id = data.azurerm_subnet.aks-subnet.id
+    vnet_subnet_id = "${data.azurerm_subnet.aks-subnet.id}"
     availability_zones = "${list("1","2","3")}"
     enable_auto_scaling = "1"
     type = "VirtualMachineScaleSets"
@@ -81,30 +81,31 @@ resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
   addon_profile {
     oms_agent {
       enabled = true
-      log_analytics_workspace_id = azurerm_log_analytics_workspace.aks-multi-nodepool.id
+      log_analytics_workspace_id = "${azurerm_log_analytics_workspace.aks-multi-nodepool.id}"
     }
   }
 
   tags = {
     environment = "dev",
     team_number = "123"
+    sub_type = "dev"
   }
 }
 
 resource "azurerm_log_analytics_workspace" "aks-multi-nodepool" {
   name = "swastik-aks-2-workspace"
-  location = data.azurerm_resource_group.swastik-rg.location
-  resource_group_name = data.azurerm_resource_group.swastik-rg.name
+  location = "${data.azurerm_resource_group.swastik-rg.location}"
+  resource_group_name = "${data.azurerm_resource_group.swastik-rg.name}"
   sku = "PerGB2018"
   retention_in_days = "30"
 }
 
 resource "azurerm_log_analytics_solution" "aks-multi-nodepool" {
   solution_name = "ContainerInsights"
-  location = data.azurerm_resource_group.swastik-rg.location
-  resource_group_name = data.azurerm_resource_group.swastik-rg.name
-  workspace_resource_id = azurerm_log_analytics_workspace.aks-multi-nodepool.id
-  workspace_name = azurerm_log_analytics_workspace.aks-multi-nodepool.name
+  location = "${data.azurerm_resource_group.swastik-rg.location}"
+  resource_group_name = "${data.azurerm_resource_group.swastik-rg.name}"
+  workspace_resource_id = "${azurerm_log_analytics_workspace.aks-multi-nodepool.id}"
+  workspace_name = "${azurerm_log_analytics_workspace.aks-multi-nodepool.name}"
 
   plan {
     publisher = "Microsoft"
