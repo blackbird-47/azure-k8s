@@ -21,7 +21,7 @@
 
 - Microsoft log analytics solution is used to node logging.
 
-- The implementation creates multiple agent pools on which pods will be deployed. Dynamics tag is used as opposed to static, making the agent pool count flexible. Two agent pools are tainted which can be leveraged to make them exclusive to pods which have toleration defined. The following agent pool sku are created,
+- The implementation creates multiple agent pools on which pods will be deployed. Dynamics tag (v0.12 or greater) is used as opposed to static, making the agent pool count flexible. Two agent pools are tainted which can be leveraged to make them exclusive to pods which have toleration defined. The following agent pool sku are created,
 
     *1. Standard_Ds2_v2*<br/>
     *2. Standard_F4s_v2*<br/>
