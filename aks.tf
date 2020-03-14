@@ -1,17 +1,17 @@
-data "azurerm_resource_group" "swastik-rg" {
-  name = "swastik-rg"
+data "azurerm_resource_group" "aks-rg" {
+  name = "aks-rg"
 }
 
 data "azurerm_subnet" "aks-subnet" {
-  name = "swastik-aks-2"
-  virtual_network_name = "swastik-aks-vnet"
-  resource_group_name = data.azurerm_resource_group.swastik-rg.name
+  name = "aks-subnet"
+  virtual_network_name = "gs-vnet"
+  resource_group_name = data.azurerm_resource_group.aks-rg.name
 }
 
 resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
-  name = "swastik-aks-2"
-  location = data.azurerm_resource_group.swastik-rg.location
-  resource_group_name = data.azurerm_resource_group.swastik-rg.name
+  name = "aks-multi-nodepool"
+  location = data.azurerm_resource_group.aks-rg.location
+  resource_group_name = data.azurerm_resource_group.aks-rg.name
   dns_prefix = "aks-multi-nodepool"
   kubernetes_version = "1.14.7"
 
@@ -60,23 +60,21 @@ resource "azurerm_kubernetes_cluster" "aks-multi-nodepool" {
 
   tags = {
     environment = "dev",
-    team_number = "123"
-    sub_type = "dev"
   }
 }
 
 resource "azurerm_log_analytics_workspace" "aks-multi-nodepool" {
-  name = "swastik-aks-2-workspace"
-  location = data.azurerm_resource_group.swastik-rg.location
-  resource_group_name = data.azurerm_resource_group.swastik-rg.name
+  name = "aks-log-workspace"
+  location = data.azurerm_resource_group.aks-rg.location
+  resource_group_name = data.azurerm_resource_group.aks-rg.name
   sku = "PerGB2018"
   retention_in_days = "30"
 }
 
 resource "azurerm_log_analytics_solution" "aks-multi-nodepool" {
   solution_name = "ContainerInsights"
-  location = data.azurerm_resource_group.swastik-rg.location
-  resource_group_name = data.azurerm_resource_group.swastik-rg.name
+  location = data.azurerm_resource_group.aks-rg.location
+  resource_group_name = data.azurerm_resource_group.aks-rg.name
   workspace_resource_id = azurerm_log_analytics_workspace.aks-multi-nodepool.id
   workspace_name = azurerm_log_analytics_workspace.aks-multi-nodepool.name
 
