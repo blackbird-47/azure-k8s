@@ -1,5 +1,5 @@
 # aks-multi-nodepool
-**Terraform implementation to create an Azure K8s cluster.**<br/>
+**Terraforming an Azure K8s cluster with multiple agent pools.**<br/>
 
 - Tfstate is configured to be stored in a storage account container making it easier to manage across multiple users.<br/>
 
