@@ -11,6 +11,6 @@ terraform {
     storage_account_name = "azurermstorage"
     container_name = "akstfstate"
     key = "aks.tfstate"
-    access_key = "rC3y5vGZ/ftKSIxP4ulpscOETvMy1d3ToCT1gjligLBHmVxDPmqd9pK6Pnyfi6EYqC278NZtYgdxtRkzHVtEeg=="
+    access_key = <access_key>
   }
 }
